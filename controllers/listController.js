@@ -36,13 +36,13 @@ module.exports.getAll = catchAsyncErrors(async (req,res)=>{
     if(!page && !pageSize || !pageSize){pageSize= await List.count() ;
         // console.log(pageSize)
     };
-    if(!fromDate) fromDate = 2022-11-01;
-    if(!toDate) toDate =Date.now();
+    if(!fromDate) fromDate = '2022-11-01';
+    if(!toDate) toDate =new Date();
     // console.log(pageSize);
     const skip = (page -1)*pageSize;
 
     const list = await List.find({'createdAt':{'$gte':fromDate,'$lte':toDate}}).skip(skip).limit(pageSize);
-    res.status(200).json({success:true,page:page,pageSize:pageSize,list});
+    res.status(200).json({success:true,fromDate:fromDate,toDate:toDate,page:page,pageSize:pageSize,list});
 })
 
 //update task
