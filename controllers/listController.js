@@ -32,8 +32,10 @@ module.exports.delete = catchAsyncErrors( async (req,res) =>{
 module.exports.getAll = catchAsyncErrors(async (req,res)=>{
     let {page,pageSize,fromDate,toDate} = req.query;
     if(!page) page =1;
-    if(!page && !pageSize) pageSize= await List.count();
-    if(!pageSize) pageSize= 5;
+    // if(!pageSize) pageSize= 5;    
+    if(!page && !pageSize || !pageSize){pageSize= await List.count() ;
+        // console.log(pageSize)
+    };
     if(!fromDate) fromDate = 2022-11-01;
     if(!toDate) toDate =Date.now();
     // console.log(pageSize);
